@@ -26,6 +26,8 @@
         </form>
     </div>
     <div id="hiddendiv" name="hiddens" value=""></div>
+    
+    <h1>업데이트되어버림</h1>
 </div>
 </body>
 </html>
