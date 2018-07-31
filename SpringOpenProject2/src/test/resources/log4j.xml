@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="org.spring.bitcamp">
+	<logger name="com.bitcamp.op">
 		<level value="info" />
 	</logger>
 	

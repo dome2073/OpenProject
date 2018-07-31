@@ -1,4 +1,4 @@
-package org.spring.bitcamp;
+package com.bitcamp.op.user.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,7 +7,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
 	
 	@RequestMapping("/")
-	public String Index() {
-		return "index";//응답해야하는 뷰 설정
+	public String index() {
+		return "index";
 	}
+
 }
+
+
+
+
+
+
+

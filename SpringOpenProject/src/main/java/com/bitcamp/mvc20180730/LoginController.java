@@ -1,4 +1,4 @@
-package org.spring.bitcamp;
+package com.bitcamp.mvc20180730;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -7,22 +7,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/login")
+// /member/login 요청이 들어오면
+@RequestMapping("/member/login")
 public class LoginController {
 	
 	//GET 방식일 경우에는 FORM 실행
 	//a태그에서 로그인을 눌렀을 경우에는 get방식이므로 실행
 	@RequestMapping(method=RequestMethod.GET)
-	public ModelAndView Login() {
-		
-		String viewName = "member/LoginForm";
-		ModelAndView model = new ModelAndView();
-		model.setViewName(viewName);
-		
-		return model;
+	public String Login() {	
+		//
+		//뷰 : member/LoginForm
+		return "/member/LoginForm";
 	}
 	
 	//POST 방식일 경우에는  실행
@@ -54,7 +51,7 @@ public class LoginController {
 		model.addAttribute("Logininfo",loginfo);
 		//Model 객체를 통해서 뷰에 데이터 전송
 		
-		return "loginok";
+		return "member/loginok";
 	}
 	
 }

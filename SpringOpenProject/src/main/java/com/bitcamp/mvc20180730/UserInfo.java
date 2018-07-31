@@ -1,4 +1,4 @@
-package org.spring.bitcamp;
+package com.bitcamp.mvc20180730;
 
 public class UserInfo {
 	private String user_id;

@@ -1,4 +1,4 @@
-package org.spring.bitcamp;
+package com.bitcamp.mvc20180730;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/Register") 
+@RequestMapping("/member/Register") 
 //1. 하나는 a태그 클릭시 요청 url - GET - 둘다 URL은 /Register
 //2. form태그 액션 요청 url - POST - 둘다 URL은 /Register
 public class RegisterController {
@@ -77,6 +77,6 @@ public class RegisterController {
 			model.addAttribute("BeanNAME",userinfo.getUser_name());
 			model.addAttribute("Userinfo",userinfo);
 			
-			return "registerok";
+			return "member/registerok";
 		}
 }
