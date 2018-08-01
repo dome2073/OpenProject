@@ -68,7 +68,6 @@ public class UserDao {
 			pstmt.setString(7, uservo.getUser_phone());
 			pstmt.setString(8, uservo.getUser_Photo());
 			
-			
 			insertCnt = pstmt.executeUpdate();
 		} finally {
 			jdbcUtil.close(pstmt);

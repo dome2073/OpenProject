@@ -48,7 +48,6 @@
       	<param-value>utf-8</param-value>
    	 </init-param>
  	</filter>
- 	
  	<!-- 인코딩 적용대상 /* 이므로 전체 -->
   <filter-mapping>
     <filter-name>encodingFilter</filter-name>

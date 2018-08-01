@@ -6,6 +6,7 @@ import java.sql.Connection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,18 +15,38 @@ import com.bitcamp.op.jdbc.ConnectionProvider;
 
 import com.bitcamp.op.jdbc.jdbcUtil;
 import com.bitcamp.op.user.dao.JdbcTemplateUserDao;
+import com.bitcamp.op.user.dao.MybatisUserDao;
 import com.bitcamp.op.user.dao.UserDao;
+import com.bitcamp.op.user.dao.UserDaoInterface;
 import com.bitcamp.op.user.model.UserVO;
 
 
 
 public class UserRegService{
 
+	//jdbcTemplate를 사용한다.
+//	@Autowired
+//	UserDao userdao;
+
+	//2018.08.01
+//  Mybatis로 바꾸기 위해 주석
+//	@Autowired
+//	JdbcTemplateUserDao userdao;
+	
+//	@Autowired
+//	MybatisUserDao userdao;
+	
+	//자동 매퍼 생성 기능
 	@Autowired
-	JdbcTemplateUserDao userdao;
+	SqlSessionTemplate template;
+	
+	private UserDaoInterface userDao;
 	
 	@Transactional
 	public int RegMember(UserVO uservo, HttpServletRequest request) throws Exception {
+		
+		userDao = template.getMapper(UserDaoInterface.class);
+		
 		int result = 0;		
 		Connection conn = null;
 		
@@ -57,16 +78,21 @@ public class UserRegService{
 			uservo.setUser_Photo (imgName);
 		
 		}
-
+//		try {
+//			conn = ConnectionProvider.getConnection();
+			
+//			result = userdao.insertMember(conn, uservo);
+		
 			System.out.println("입력 전 :" + uservo.getUser_number());
 			
-			result = userdao.insertUser(uservo);	
+			result = userDao.insertUser(uservo);
 		
 			System.out.println("입력 후 :" + uservo.getUser_number());
+//		} finally {
+//			jdbcUtil.close(conn);
+//		}
 
 		return result;
 	}
-		
-	//jdbcTemplate를 이용하므로 중복코드를 제거.
-	//con, try-catch문 사용할 필요가 없어짐.
+
 }
