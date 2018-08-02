@@ -1,0 +1,47 @@
+        body{
+            background-color: #e2dfdf;
+        }
+        *{
+            margin-top:20px;
+        }
+        div{
+            width: 100%;
+            
+        }
+        #header{
+            margin:0 1080px;
+        }
+        #logo{
+            text-decoration: none;
+            font-size:80px;
+            color: rgba(11, 183, 11, 0.96);
+        }
+        #divtext {
+            width: 600px;
+            height: 70px;
+            border: 1px solid gray;
+            margin-top: 20px;
+            background-color: white;
+        }
+        #text1 {
+            width: 450px;
+            height: 30px;
+            margin: 18px;
+            border: none;
+        }
+        #content{
+             width: 100%;
+            margin: 0 900px;
+            margin-top:90px;
+        }
+        #login{
+            width: 605px;
+            height: 75px;
+            color: white;
+            background-color: rgba(11, 183, 11, 0.96);
+        }
+        #register{
+            text-decoration: none;
+            margin-left: 400px;
+            color: blue;
+        }

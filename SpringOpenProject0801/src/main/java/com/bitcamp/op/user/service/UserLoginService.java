@@ -17,8 +17,6 @@ import com.bitcamp.op.user.dao.UserDao;
 import com.bitcamp.op.user.dao.UserDaoInterface;
 import com.bitcamp.op.user.model.UserVO;
 
-
-
 public class UserLoginService {
 	
 	//2018.07.31
