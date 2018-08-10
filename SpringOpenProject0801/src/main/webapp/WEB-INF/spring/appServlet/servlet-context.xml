@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <beans:beans
 	xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -124,8 +124,8 @@
   class="org.springframework.mail.javamail.JavaMailSenderImpl">
   <beans:property name="host" value="smtp.gmail.com" />
   <beans:property name="port" value="587" /><!-- 465 or 25-->
-  <beans:property name="username" value="wlgns2073" />
-  <beans:property name="password" value="dhdlfdl123" />
+  <beans:property name="username" value="<!--이곳에아이디를입력-->" />
+  <beans:property name="password" value="<!--이곳에 비밀번호를 입력-->" />
   <beans:property name="defaultEncoding" value="utf-8" />
   <beans:property name="javaMailProperties">
    <beans:props>
