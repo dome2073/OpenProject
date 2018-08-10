@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bitcamp.op.mail.MailSendService;
 import com.bitcamp.op.user.model.UserVO;
 import com.bitcamp.op.user.service.UserLoginService;
 import com.bitcamp.op.user.service.UserRegService;
@@ -24,6 +25,9 @@ public class UserRegController {
 	//주입
 	@Autowired
 	UserRegService userRegService;
+	
+	@Autowired
+	MailSendService MailSendService;
 	
 	//a태그를 통해서 GET방식으로 접근시 회원가입 폼으로 이동(메서드실행)
 		@RequestMapping(method=RequestMethod.GET)
@@ -48,6 +52,8 @@ public class UserRegController {
 			//실행결과를 뷰페이지로 전송
 			model.addAttribute("insertCnt",insertCnt);
 			
+			//메일 발송
+			MailSendService.MailSender(uservo.getUser_email(), MailSendService.NEW);
 
 			return "user/userReg";
 		}

@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%	
-	//세션값을 저장
-	String memberId = (String)session.getAttribute("MEMBERID");
-	//세션이 있는경우  login=true
-	boolean login = memberId == null ? false : true; 
-%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
@@ -91,16 +85,14 @@
     		<li class="banner"><a href="<c:url value='/user/login'/>">로그인</a></li>         	
          	</c:if>
          	<c:if test="${loginInfo ne null }">
-         		<li class="banner"><a href="<c:url value='/user/login'/>">로그아웃</a></li>
+         		<li class="banner"><a href="<c:url value='/user/logout'/>">로그아웃</a></li>
          	</c:if>
    			<li class="banner"><a href="<c:url value='/user/reg'/>">회원가입</a></li>
    			<li class="banner"><a href="<c:url value='/user/mypage'/>">마이페이지</a></li>
-           
-          <!-- <li class="banner"><a href="Mypage.jsp">회원마이페이지(회원)</a></li>
-          <li class="banner"><a href="Userlist.jsp">회원리스트(회원)</a></li>
-          <li class="banner"><a href="emp_list.jsp">사원리스트</a></li>
-          <li class="banner"><a href="emp_insertForm.jsp">사원등록</a></li>
-          <li class="banner"><a href="GuestList.jsp">방명록</a></li> -->
+           	<li class="banner"><a href="<c:url value='/user/userlist'/>">회원리스트</a></li>
+           	<li class="banner"><a href="<c:url value='/user/'/>">사원리스트</a></li>
+           	<li class="banner"><a href="<c:url value='/user/messagelist'/>">방명록</a></li>
+        
         </ul>
     </div>
     

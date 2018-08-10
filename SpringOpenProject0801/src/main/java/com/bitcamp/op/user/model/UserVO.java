@@ -13,8 +13,14 @@ public class UserVO {
 	private String user_phone;
 	
 	//DB 데이터 입력을 위한 변수
-	private String User_Photo;
+	private String user_photo;
 	
+	public String getUser_photo() {
+		return user_photo;
+	}
+	public void setUser_photo(String user_photo) {
+		this.user_photo = user_photo;
+	}
 	//파일 업로드를 위한 변수
 	private MultipartFile photoFile;
 	
@@ -24,13 +30,6 @@ public class UserVO {
 	public void setPhotoFile(MultipartFile photoFile) {
 		this.photoFile = photoFile;
 	}
-	public String getUser_Photo() {
-		return User_Photo;
-	}
-	public void setUser_Photo(String user_Photo) {
-		User_Photo = user_Photo;
-	}
-	
 	public int getUser_number() {
 		return user_number;
 	}
@@ -79,16 +78,17 @@ public class UserVO {
 	public void setUser_phone(String user_phone) {
 		this.user_phone = user_phone;
 	}
-	
-	@Override
-	public String toString() {
-		return "UserVO [user_id=" + user_id + ", user_pw=" + user_pw + ", user_name=" + user_name + ", user_birth="
-				+ user_birth + ", user_gender=" + user_gender + ", user_email=" + user_email + ", user_phone="
-				+ user_phone + "]";
-	}
+
 	public boolean Checkpw(String pw) {
 
 		return user_pw.equals(pw) ? true : false;
+	}
+	@Override
+	public String toString() {
+		return "UserVO [user_number=" + user_number + ", user_id=" + user_id + ", user_pw=" + user_pw + ", user_name="
+				+ user_name + ", user_birth=" + user_birth + ", user_gender=" + user_gender + ", user_email="
+				+ user_email + ", user_phone=" + user_phone + ", user_photo=" + user_photo + ", photoFile=" + photoFile
+				+ "]";
 	}
 	
 	

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bitcamp.op.SHA256.SHA256;
 import com.bitcamp.op.jdbc.ConnectionProvider;
 
 import com.bitcamp.op.jdbc.jdbcUtil;
@@ -20,26 +21,15 @@ import com.bitcamp.op.user.dao.UserDao;
 import com.bitcamp.op.user.dao.UserDaoInterface;
 import com.bitcamp.op.user.model.UserVO;
 
-
-
 public class UserRegService{
 
-	//jdbcTemplate를 사용한다.
-//	@Autowired
-//	UserDao userdao;
-
-	//2018.08.01
-//  Mybatis로 바꾸기 위해 주석
-//	@Autowired
-//	JdbcTemplateUserDao userdao;
-	
-//	@Autowired
-//	MybatisUserDao userdao;
-	
 	//자동 매퍼 생성 기능
 	@Autowired
 	SqlSessionTemplate template;
 	
+	//자동화 매핑
+	@Autowired
+	SHA256 SHA;
 	private UserDaoInterface userDao;
 	
 	@Transactional
@@ -75,24 +65,21 @@ public class UserRegService{
 			System.out.println(imgName);
 			
 			//DB에 저장할 사진이름을 저장함 (SET)
-			uservo.setUser_Photo (imgName);
+			uservo.setUser_photo(imgName);
 		
 		}
-//		try {
-//			conn = ConnectionProvider.getConnection();
-			
-//			result = userdao.insertMember(conn, uservo);
-		
+
 			System.out.println("입력 전 :" + uservo.getUser_number());
+			
+			//암호화
+			String pw = SHA.encrypt(uservo.getUser_pw());
+			uservo.setUser_pw(pw);
 			
 			result = userDao.insertUser(uservo);
 		
 			System.out.println("입력 후 :" + uservo.getUser_number());
-//		} finally {
-//			jdbcUtil.close(conn);
-//		}
+
 
 		return result;
 	}
-
 }

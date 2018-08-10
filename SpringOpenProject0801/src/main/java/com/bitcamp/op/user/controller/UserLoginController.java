@@ -40,6 +40,8 @@ public class UserLoginController {
 		String pw = request.getParameter("userpw");
 		
 		//login 결과가 담겨있는 result
+		//일치하는 아이디가 있을경우 - result = true
+		//             없을경우  - result = false
 		boolean result = userLoginService.login(request, id, pw);
 		
 		//뷰로 데이터 전송

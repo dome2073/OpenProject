@@ -9,7 +9,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/commons/header.jsp" />
-	<c:if test="${insertCnt>0 }">
+	<c:if test="${insertCnt>0}">
 		<h1>회원가입 성공 페이지</h1>
 		<h3>${user}</h3>
 	</c:if>

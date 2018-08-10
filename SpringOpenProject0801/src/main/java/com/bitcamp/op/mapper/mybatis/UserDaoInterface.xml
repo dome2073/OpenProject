@@ -4,8 +4,7 @@
 	
 <mapper namespace="com.bitcamp.op.user.dao.UserDaoInterface">
 	<select id="selectById"
-	resultType="com.bitcamp.op.user.model.UserVO"	
-	> 
+	resultType="com.bitcamp.op.user.model.UserVO"> 
 	select * from userinfo where user_id = #{id}
 	
 	</select>
@@ -14,9 +13,27 @@
 	parameterType="com.bitcamp.op.user.model.UserVO"
 	>
 		insert into userinfo values(num_seq.nextval,#{user_id},#{user_pw},#{user_name},#{user_birth},
-		#{user_gender},#{user_email},#{user_phone},#{user_Photo})
-		
-		
-		
+		#{user_gender},#{user_email},#{user_phone},#{user_photo})
 	</insert>
+	
+	<select 
+	id="UserCount"
+	resultType="int">
+	select count(*) from userinfo
+	</select>
+	
+	<select
+	id="UserList"
+	resultType="com.bitcamp.op.user.model.UserVO">
+	
+	select * 
+		from (
+		select rownum rnum , user_number, user_id, user_pw,user_name,user_birth,user_gender,user_email,user_phone,user_photo
+		 from (
+           select * from userinfo u order by u.user_number asc
+            ) 
+		where <![CDATA[rownum<=#{param2})]]> where<![CDATA[rnum>=#{param1}]]> 
+	</select>
+	
+	
 </mapper>

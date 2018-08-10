@@ -66,7 +66,7 @@ public class UserDao {
 			pstmt.setString(5, uservo.getUser_gender());
 			pstmt.setString(6, uservo.getUser_email());
 			pstmt.setString(7, uservo.getUser_phone());
-			pstmt.setString(8, uservo.getUser_Photo());
+			pstmt.setString(8, uservo.getUser_photo());
 			
 			insertCnt = pstmt.executeUpdate();
 		} finally {

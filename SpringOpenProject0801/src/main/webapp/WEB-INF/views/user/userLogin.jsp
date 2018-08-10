@@ -9,7 +9,7 @@
 <style>
 	.zz{
 		margin : 300px;
-		
+
 	}
 </style>
 </head>
@@ -20,6 +20,7 @@
 		<h1>로그인 성공 페이지입니다</h1>
 		<h3>${userid} 님이 접속하셨습니다.</h3>
 	</c:if>
+	
 	<c:if test="${loginchk==false}"><h1>로그인 실패입니당</h1></c:if>
 	
 	</div>

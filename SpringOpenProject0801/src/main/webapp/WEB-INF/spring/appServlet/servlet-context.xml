@@ -84,15 +84,30 @@
 	<!-- MybatisDao 빈 등록 -->
 	<beans:bean id="MybatisUserDao"
 		class="com.bitcamp.op.user.dao.MybatisUserDao" />
-
+	
 	<!-- 로그인 서비스 빈 등록 -->
 	<beans:bean id="UserLoginService"
 		class="com.bitcamp.op.user.service.UserLoginService" />
-
+	
 	<!-- 회원가입 서비스 빈 등록 -->
 	<beans:bean id="UserRegService"
 		class="com.bitcamp.op.user.service.UserRegService"></beans:bean>
-
+	
+	<beans:bean id="UserListService"
+		class="com.bitcamp.op.user.service.UserListService"/>
+	
+	<!-- 방명록 리스트 서비스 -->	
+	<beans:bean id="MessageListService"
+		class="com.bitcamp.op.user.service.MessageListService"/>
+	
+	<!-- 방명록 등록 서비스 -->	
+	<beans:bean id="MessageWriteService"
+		class="com.bitcamp.op.user.service.MessageWriteService"/>
+		
+	<!-- 방명록 삭제 서비스 -->	
+	<beans:bean id="MessageDeleteService"
+		class="com.bitcamp.op.user.service.MessageDeleteService"/>
+		
 	<!-- 로그인 체크를 위한 인터셉터 등록 -->
 	<interceptors>
 		<interceptor>
@@ -103,6 +118,32 @@
 				class="com.bitcamp.op.interceptor.AuthCheckInterceptor" />
 		</interceptor>
 	</interceptors>
+	
+<!-- 메일발송을 위한 JavaMailSender Interface 빈 설정 -->
+	<beans:bean id="mailSender"
+  class="org.springframework.mail.javamail.JavaMailSenderImpl">
+  <beans:property name="host" value="smtp.gmail.com" />
+  <beans:property name="port" value="587" /><!-- 465 or 25-->
+  <beans:property name="username" value="wlgns2073" />
+  <beans:property name="password" value="dhdlfdl123" />
+  <beans:property name="defaultEncoding" value="utf-8" />
+  <beans:property name="javaMailProperties">
+   <beans:props>
+    <beans:prop key="mail.transport.protocol">smtp</beans:prop>
+    <beans:prop key="mail.smtp.auth">true</beans:prop>
+    <beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+    <beans:prop key="mail.debug">true</beans:prop>
+   </beans:props>
+  </beans:property>
+ </beans:bean>
+	
+	<beans:bean id="SimpleMailSenderService" 
+	class="com.bitcamp.op.mail.MailSendService">
+	</beans:bean>
+	
+	<!-- 암호화 설정 -->
+	<!-- SHA 빈 등록 -->
+	<beans:bean id="sha" class="com.bitcamp.op.SHA256.SHA256"></beans:bean>
 	
 	<!-- PlatformTransactionManager 빈 설정 -->
 	<beans:bean id="transactionManager"

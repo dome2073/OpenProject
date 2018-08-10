@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.bitcamp.op.user.dao.MessageDaoInterface">
+	
+	<!-- oracle -->
+	<!-- 메세지등록 -->
+	<insert id="MessageInsert"
+	parameterType="com.bitcamp.op.user.model.MessageVO"
+	useGeneratedKeys="true"
+	keyProperty="id"
+	>
+		insert into openProject.guestbook_message (guestName,password,message) values(#{guestName},#{password},#{message})  		
+	</insert>
+	
+	<!-- 전체 게시물 개수 카운트 -->
+	<select id ="selectCount"
+	resultType="int">
+		select count(*) from openProject.guestbook_message
+	</select>
+	
+	<!-- 해당 페이지의 방명록 -->
+	<select id="selectList"
+	resultType="com.bitcamp.op.user.model.MessageVO">
+		select * from openProject.guestbook_message limit #{param1},#{param2}
+	</select>
+	
+	<!-- 해당아이디의 게시물 -->
+	<select id="MessageSelect"
+	resultType="com.bitcamp.op.user.model.MessageVO"
+	parameterType="int"
+	>
+	
+		select * from openProject.guestbook_message where id = #{id}	
+	</select>
+	
+	<delete id="MessageDelete"
+	parameterType="int"
+	>
+	delete from openProject.guestbook_message where id = #{id}
+	</delete>
+	
+			
+
+
+
+
+
+
+
+
+</mapper>
