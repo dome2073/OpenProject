@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.movie.project.dao.ReserveDAOInterface">
+
+<insert id="insertSeat" parameterType="com.movie.project.model.Reservation">
+	insert into Movie.tb_reservation(seats_id,user_id,movie_code) values(#{seats_id},#{user_id},#{movie_code})
+</insert>
+<select id="getSeatsByMv" resultType="com.movie.project.model.Reservation">
+	select seats_id from Movie.tb_reservation where movie_code=#{movieCode}
+</select>
+<select id="getSeatsByMvJson" resultType="com.movie.project.model.Reservation">
+	select seats_id from Movie.tb_reservation where movie_code=#{movieCode}
+</select>
+
+</mapper>

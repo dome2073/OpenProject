@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="com.movie.project.dao.UserDaoInterface">
+	<select id="selectById"
+	resultType="com.movie.project.model.UserVO"> 
+		select * from Movie.tb_userinfo where user_id = #{id}
+	
+	</select>
+	
+	<insert id="insertUser" 
+	parameterType="com.movie.project.model.UserVO"
+	useGeneratedKeys="true"
+	keyProperty="user_number"
+	>
+		insert into Movie.tb_userinfo (user_id, user_pw, user_name, user_birth, user_gender, user_email, user_phone, user_photo) values(#{user_id},#{user_pw},#{user_name},#{user_birth},
+		#{user_gender},#{user_email},#{user_phone},#{user_photo})
+	</insert>
+	
+	<select 
+	id="UserCount"
+	resultType="int">
+		select count(*) from Movie.tb_userinfo
+	</select>
+	
+	<!-- MySQL -->
+	<select
+	id="UserList"
+	resultType="com.movie.project.model.UserVO">
+		select * from Movie.tb_userinfo limit #{param1},#{param2}
+	</select>
+	
+	<update id="UpdateUser"
+	parameterType="com.movie.project.model.UserVO"
+	>
+	UPDATE Movie.tb_userinfo SET user_pw=#{user_pw},user_name=#{user_name}, user_photo=#{user_photo} WHERE user_number=#{user_number};
+	
+	</update>
+	
+	<select id="UserSelect"
+			resultType="com.movie.project.model.UserVO"
+			parameterType="int">
+	select * from Movie.tb_userinfo where user_number = #{number}
+	</select>
+	
+	<delete id="UserDelete"
+			parameterType="int">
+			
+			delete from Movie.tb_userinfo where user_number = #{number}
+	
+	</delete>
+	
+</mapper>

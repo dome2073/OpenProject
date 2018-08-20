@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans
+	xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure -->
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+	<!-- CSS 폴더 등록 -->
+	<resources mapping="/css/**" location="/css/" />
+	<!-- 이미지 폴더 등록 -->
+	<resources mapping="/img/**" location="/img/" />
+	<!-- uploadFile/memberPhoto 폴더의 이미지 폴더로 등록 -->
+	<resources mapping="/uploadFile/**" location="/uploadFile/" />
+	<!-- js폴더 등록 -->
+	<resources mapping="/js/**" location="/js/" />
+	<!-- font폴더 등록 -->
+	<resources mapping="/font/**" location="/font/" />
+
+	<!-- 파일업로드 처리를 위한 multipartResolver bean 등록 -->
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="defaultEncoding">
+			<beans:value>utf-8</beans:value>
+		</beans:property>
+	</beans:bean>
+	
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+	<context:component-scan
+		base-package="com.movie.project" />
+
+	
+	<!-- 데이터베이스 연동을 위한 DataSource 빈 등록 : JdbcTemplate에 주입 -->
+
+ 	<beans:bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+		<beans:property name="driverClassName"
+			value="com.mysql.jdbc.Driver">
+		</beans:property>
+
+		<beans:property name="url"
+			value="jdbc:mysql://opendbmysql.cwj6ewjgirov.ap-northeast-2.rds.amazonaws.com:3306
+			/Movie?characterEncoding=utf8">
+		</beans:property>
+		<beans:property name="username" value="open"></beans:property>
+		<beans:property name="password" value="dhdlfdl123"></beans:property>
+	</beans:bean> 
+	
+	<!-- 1.spring + mybatis 연동 설정 -->
+	<beans:bean id="sqlSessionFactoryBean"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- dataSource주입 -->
+		<beans:property name="dataSource" ref="dataSource" />
+		<!-- value = 설정파일이 있는 위치 -->
+		<beans:property name="mapperLocations"
+			value="classpath:com/movie/project/mybatis/*.xml" />
+	</beans:bean>
+
+	<!-- 2. SessionTemplate 클래스 등록 -->
+	<beans:bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg index="0"
+			ref="sqlSessionFactoryBean" />
+	</beans:bean>
+
+	<!-- 로그인 서비스 빈 등록 -->
+	<beans:bean id="UserLoginService"
+		class="com.movie.project.service.UserLoginService" />
+	<!-- 회원가입 서비스 빈 등록 -->
+	<beans:bean id="UserRegService"
+		class="com.movie.project.service.UserRegService"/>
+	<!-- 회원정보수정 서비스 빈 등록 -->
+	<beans:bean id="UserUpdateService"
+		class="com.movie.project.service.UserUpdateService"/>
+	<!-- 회원리스트 서비스 빈 등록 -->
+	<beans:bean id="UserListService"
+		class="com.movie.project.service.UserListService"/>
+	<!-- 회원삭제 서비스 빈 등록 -->
+	<beans:bean id="UserDeleteService"
+	class="com.movie.project.service.UserDeleteService"/>
+	<!-- 회원탈퇴 서비스 빈 등록  -->
+	<beans:bean id="UserMyDelete"
+	class="com.movie.project.service.UserMyDelete"/>
+	
+	
+	<!-- 예약 서비스 빈 등록 -->
+	<beans:bean id="ReserveService" class="com.movie.project.service.ReserveService"></beans:bean>
+	
+	<!-- 리뷰 서비스 빈 등록 -->
+	<beans:bean id="ReplyService" class="com.movie.project.service.ReplyService"></beans:bean>
+
+	<!-- 암호화 설정 빈등록 -->
+	<!-- SHA 빈 등록 -->
+	<beans:bean id="sha" class="com.movie.project.SHA256.SHA256"></beans:bean>
+
+	<!-- 로그인 체크를 위한 인터셉터 등록 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/user/**" />
+			<mapping path="/review" />
+			<mapping path="/reserve/**"/>
+			<exclude-mapping path="/user/login" />
+			<exclude-mapping path="/user/reg" />
+			<beans:bean
+				class="com.movie.project.interceptor.AuthCheckInterceptor" />
+		</interceptor>
+		
+	</interceptors>
+
+	<!-- 메일발송을 위한 JavaMailSender Interface 빈 설정 -->
+	<beans:bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<beans:property name="host" value="smtp.gmail.com" />
+		<beans:property name="port" value="587" /><!-- 465 or 25 -->
+		<beans:property name="username" value="wlgns2073" />
+		<beans:property name="password" value="dhdlfdl123" />
+		<beans:property name="defaultEncoding" value="utf-8" />
+		<beans:property name="javaMailProperties">
+			<beans:props>
+				<beans:prop key="mail.transport.protocol">smtp</beans:prop>
+				<beans:prop key="mail.smtp.auth">true</beans:prop>
+				<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+				<beans:prop key="mail.debug">true</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+	
+	<beans:bean id="SimpleMailSenderService"
+		class="com.movie.project.mail.MailSendService">
+	</beans:bean>
+
+	<!-- PlatformTransactionManager 빈 설정 -->
+	<beans:bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+
+	<!-- @Transactional 애노테이션 활성화 설정 -->
+	<tx:annotation-driven
+		transaction-manager="transactionManager" />
+
+</beans:beans>

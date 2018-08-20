@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.movie.project.dao.ReplyDAO">
+	<select id="list" resultType="com.movie.project.model.ReplyVO">
+		select *
+		from tbl_reply
+		where movie_code = #{movie_code}
+		order by rno desc
+	</select>
+	
+	<insert id="create">
+		insert into tbl_reply (user_id, movie_code, replytext)
+		values (#{user_id}, #{movie_code}, #{replytext})
+	</insert>
+	
+	<update id="update">
+		update tbl_reply set replytext = #{replytext}, updatedate = now()
+		where rno = #{rno}
+	</update>
+	
+	<delete id="delete">
+		delete from tbl_reply where rno = #{rno}
+	</delete>
+	
+	<select id="listPage" resultType="com.movie.project.model.ReplyVO">
+		select * from tbl_reply where movie_code = #{movie_code}
+		order by rno desc
+		limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="count" resultType="int">
+		select count(movie_code)
+		from tbl_reply
+		where movie_code = #{movie_code}
+	</select>
+</mapper>
